@@ -1,0 +1,66 @@
+//query
+query findCompany{
+    apple: company(id:"2") {
+      ...companyDetails
+    }
+  
+   google: company(id:"2") {
+    ...companyDetails
+  }
+}
+
+
+fragment companyDetails on Company {    // Note: here the Company is the name of the GraphQLObjectType not the constant name
+  id,
+  name,
+  description,
+  users {
+    id,
+    firstName,
+    age
+  }
+}
+
+
+
+//mutation
+
+mutation {
+  addUser(firstName: "Sanamdeep", age:28){
+    id,
+    firstName,
+    age
+  }
+}
+
+
+mutation {
+  deleteUser(id: "41") {
+    id,
+    firstName,
+    age
+  }
+}
+
+    response:  Note the values returned will be null because I am using JSon-server at the moment
+        {
+          "data": {
+            "deleteUser": {
+              "id": null, 
+              "firstName": null,
+              "age": null
+            }
+          }
+        }
+
+
+mutation {
+  editUser(id:"40",age:21) {
+    id,
+    firstName,
+    age,
+    company{
+      name
+    }
+  }
+}
